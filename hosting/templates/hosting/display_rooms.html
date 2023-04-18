@@ -1,0 +1,55 @@
+
+{% load static  %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Rooms</title>
+    <link rel="stylesheet" type="text/css" href='{% static "hosting/displayrooms.css" %}'>
+   
+    <script>
+        function goBack() {
+          window.history.back();
+        }
+        </script>
+    
+</head>
+<body >
+    <button onclick="goBack()">Go Back</button>
+
+<div class="add">
+    <button class="button" onclick="window.location.href='{% url 'hosting:createroom' %}'"  id="add-room"> <img src="{% static 'hosting/images/add.svg'%}" alt="add svg" id="svg"  > ADD ROOM</button>
+</div>
+
+
+
+
+<div class="grid-container">
+    {% for room in  rooms %}
+    <div class="grid-item">
+      <div class="card">
+          <img src="{% static room.image %}" alt="room image" class="img">
+          <div class="container">
+            <h4><b>Description: </b></h4> 
+            <p>{{room.description}}</p> 
+            <button class="button"  onclick="window.location.href='{% url 'hosting:room' room.id %}'"  >View More</button>
+            <button class="button" id="delete" onclick="window.location.href='{% url 'hosting:delete_room' room.id %}'" >Delete</button>
+          </div>
+        </div>
+    </div>
+      
+    {% endfor %}
+  
+    
+</div>
+
+  
+  
+
+
+</body>
+</html>
