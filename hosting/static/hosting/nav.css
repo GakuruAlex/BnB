@@ -1,0 +1,35 @@
+.nav{
+    display: flex;
+    background-color: rgb(240,240,248);
+    flex-direction: column;
+    height: 95vh;
+    width: 20vw;
+    margin-top:1em ;
+    margin-left: 0.5em;
+    border-radius: 0.7em;
+    -webkit-border-radius: 0.7em;
+    -moz-border-radius: 0.7em;
+    -ms-border-radius: 0.7em;
+    -o-border-radius: 0.7em;
+}
+.navlink{
+    float: center;
+    display: flex;
+    flex-direction: row;
+    color: var(--primary-text-color);
+    padding: 0.2em;
+    margin: 0.2em;
+    border-radius:0.5em ;
+    -webkit-border-radius:0.5em ;
+    -moz-border-radius:0.5em ;
+    -ms-border-radius:0.5em ;
+    -o-border-radius:0.5em ;
+}
+.svg{
+    width: 1.5em;
+    
+}
+a:hover{
+    background-color: var(--text-icons-color);
+}
+
