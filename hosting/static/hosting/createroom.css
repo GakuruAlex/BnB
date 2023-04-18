@@ -1,0 +1,21 @@
+
+.input{
+    margin: 2em;
+    margin-left: 15em;
+    width: 5em;
+    height: 3em;
+    background-color: var(--text-icons-color);
+    border-radius: 0.25em;
+    -webkit-border-radius: 0.25em;
+    -moz-border-radius: 0.25em;
+    -ms-border-radius: 0.25em;
+    -o-border-radius: 0.25em;
+}
+div{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    margin-top: 2em;
+    margin-left: 2em;
+    height: 20vh;
+}
