@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+
+{% load  static  %}
+<link rel="stylesheet" type="text/css" href="{%  static 'hosting/createroom.css' %}">
+
+<link rel="stylesheet" type="text/css" href="{% static 'hosting/index.css' %}">
+
+{% block content %}
+  <div>
+    <h2>Fill in the details for the new room</h2>
+    <form method="post" class="form">
+        {% csrf_token %}
+    
+        <table >
+            <tr>
+                <th>{{ form.image_url.label_tag }}</th>
+                <th>{{ form.name.label_tag }}</th>
+                <th>{{form.description.label_tag}}</th>
+                <th>{{form.price.label_tag}}</th>
+                <th>{{form.location.label_tag}}</th>
+                
+            </tr>
+            <tr>
+                <td>{{ form.image_url}}</td>
+                <td>{{ form.name }}</td>
+                <td>{{form.description}}</td>
+                <td>{{form.price}}</td>
+                <td>{{form.location}}</td>
+            </tr>
+    
+           
+        </table>
+        <input type="submit" value="Submit">
+    
+    </form>
+    {% endblock content %}
+    
+       
+    
+    
+    
+  </div>
