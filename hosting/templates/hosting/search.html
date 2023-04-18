@@ -1,0 +1,9 @@
+{% load static  %}
+
+
+<link rel="stylesheet" type="text/css" href="{%  static 'hosting/search.css' %}">
+
+<form class="nosubmit" method="post" >
+    {% csrf_token %}
+    <input class="nosubmit" type="search" placeholder="Search...">
+</form>

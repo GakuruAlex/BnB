@@ -1,0 +1,24 @@
+
+
+{% extends 'hosting/index.html' %}
+{% block content %}
+  <div id="room">
+    {% if room_content %}
+    <img src="room_content.image" alt="room ">
+    <h3>{{room_content.name}}</h3>
+    <h3>Description: {{room_content.description}}</h3>
+    <h3>Location: {{room_content.location}}</h3>
+    <h3>Pricing USD: {{room_content.price}}</h3>
+    <h3>Vacancy: {% if !occupied %}
+        Available
+      
+    {% endif %}
+     Not Available
+    </h3>
+        
+      
+    {% endif %}
+
+    <h2>No Rooms created yet</h2>
+  </div>
+{% endblock content %}
