@@ -43,6 +43,7 @@ def create_room(request):
 
 def room(request,pk):
     room = Room.objects.get(id=pk)
+    return render(request,{"room":room},"hosting/room_detail.html")
     
     
 def delete_room(request,pk):
