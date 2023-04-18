@@ -1,0 +1,11 @@
+{% load static %} 
+
+<link rel="stylesheet" type="text/css" href="{%  static 'hosting/nav.css' %}">
+
+<div class="nav">
+    <a href="" class="navlink"> <img src="{% static 'hosting/images/home.svg' %}" alt="home" class="svg">HOME</a>
+    <a href="{% url 'hosting:view-rooms' %}" class="navlink"><img src="{% static 'hosting/images/list.svg' %}" alt="room" class="svg">ROOMS</a>
+    <a href="" class="navlink"><img src="{% static 'hosting/images/book.svg' %}" alt="book" class="svg">BOOK</a>
+    <a href="" class="navlink"><img src="{% static 'hosting/images/contact.svg' %}" alt="contact" class="svg">CONTACT</a>
+
+</div>
