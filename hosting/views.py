@@ -11,6 +11,16 @@ def rooms(request):
     return render(request,'hosting/display_rooms.html',{'rooms':rooms})
 
 
+
+
+
+def room(request,pk):
+    room = get_object_or_404(Room,id=pk)
+    
+    return render(request,"hosting/room_detail.html",{"room":room})
+    
+
+
 def create_room(request):
     
     if request.method =='POST':
@@ -39,12 +49,41 @@ def create_room(request):
      form = RoomForm()
      return render(request,'hosting/create_room.html',{'form':form})
      
-
-
-def room(request,pk):
-    room = Room.objects.get(id=pk)
+     
+def edit_room(request,pk):
+    room_to_edit = get_object_or_404(Room,pk=pk)
     
     
+    if request.method == 'POST':
+        form = RoomForm(request.POST)
+        if form.is_valid():
+            room_to_edit.image= form.cleaned_data['image_url']
+            room_to_edit.name = form.cleaned_data['name']
+            room_to_edit.description =  form.cleaned_data['description']
+            room_to_edit.location = form.cleaned_data['location']
+            room_to_edit.price = form.cleaned_data['price']
+            room_to_edit.occupied= form.cleaned_data['is_occupied']
+            room_to_edit.is_cleaned =form.cleaned_data['is_cleaned']
+             
+           
+            room_to_edit.save()
+            return HttpResponseRedirect(reverse('hosting:dashboard'))
+    else:
+        form =RoomForm(initial={
+            'image':room_to_edit.image,
+            'name':room_to_edit.name,
+            'description': room_to_edit.description,
+            'location':room_to_edit.location,
+            'price': room_to_edit.price,
+            'occupied':room_to_edit.occupied,
+            'is_cleaned': room_to_edit.is_cleaned
+        })  
+    return render(request,"hosting/edit_room.html",{"form":form,"name":room_to_edit.name})
+    
+    
+    
+    
+
 def delete_room(request,pk):
     room = Room.objects.get(id=pk)
     room.delete()

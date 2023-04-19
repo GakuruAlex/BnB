@@ -1,0 +1,25 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'hosting/roomdetail.css' %}">
+{% block title %}
+<script>
+    function goBack() {
+      window.history.back();
+    }
+    </script>
+    <button class="go-back" onclick="goBack()">Go Back</button>
+
+<div class="card">
+ 
+    <img src="{% static room.image %}" alt="room image" class="img" style="width:100%;height: 100%;">
+    <div class="container">
+        <h2>{{room.name}}</h2>
+      <p>Description: {{room.description}}</p>
+      <h4 class="price"><b>Price USD: {{room.price}}</b></h4>
+      <h4>Location: {{room.location}}</h4>
+      <button class="button"  onclick="window.location.href='#'"  >Book</button>
+      <button class="button"  onclick="window.location.href='{% url 'hosting:editroom' room.id %}'"  >EDIT</button>
+    </div>
+  </div>
+
+{% endblock title %}
