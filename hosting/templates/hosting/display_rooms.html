@@ -34,9 +34,10 @@
       <div class="card">
           <img src="{% static room.image %}" alt="room image" class="img">
           <div class="container">
+            <h4>Room {{room.name}}</h4>
             <h4><b>Description: </b></h4> 
             <p>{{room.description}}</p> 
-            <button class="button"  onclick="window.location.href='{% url 'hosting:room' room.id %}'"  >View More</button>
+            <button class="button"  onclick="window.location.href='{% url 'hosting:viewroom' room.id %}'"  >View More</button>
             <button class="button" id="delete" onclick="window.location.href='{% url 'hosting:delete_room' room.id %}'" >Delete</button>
           </div>
         </div>
