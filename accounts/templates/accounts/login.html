@@ -1,0 +1,29 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'accounts/login.css'%}">
+{% block title %}
+<h3>Login </h3>
+  
+{% endblock title %}
+
+
+
+<form action="{% url 'accounts:login' %}" method="post">
+    {% csrf_token %}
+<div class="login">
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username">
+
+    <label for="username">password</label>
+    <input type="password" name="password" id="password">
+
+    <input type="submit" value="Login" id="login">
+
+</div>
+<div>
+    {% for message in message  %}
+    <p>{{message}}</p>
+      
+    {% endfor %}
+</div>
+</form>
