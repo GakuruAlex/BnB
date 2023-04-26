@@ -26,14 +26,17 @@
 </div>
 
 
-
+<h2>Welcome {{request.user}}</h2>
 
 <div class="grid-container">
+ 
     {% for room in  rooms %}
     <div class="grid-item">
       <div class="card">
-          <img src="{% static room.image %}" alt="room image" class="img">
+          <img src="{{room.image.url }}" alt="room image" class="img">
+          
           <div class="container">
+            <h5>@ {{room.owner}}</h5>
             <h4>Room {{room.name}}</h4>
             <h4><b>Description: </b></h4> 
             <p>{{room.description}}</p> 

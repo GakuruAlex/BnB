@@ -5,30 +5,33 @@
 
 {% block content %}
 
-<form  method="post">
+<form  method="post" enctype="multipart/form-data">
 {% csrf_token %}
 
     <table class="edit">
         <tr>
-            <th>{{ form.image_url.label_tag }}</th>
+            <th>{{ form.image.label_tag }}</th>
             <th>{{ form.name.label_tag }}</th>
             <th>{{form.description.label_tag}}</th>
             <th>{{form.price.label_tag}}</th>
             <th>{{form.location.label_tag}}</th>
+            <th>{{form.owner.label_tag}}</th>
             
             
         </tr>
         <tr>
-            <td>{{ form.image_url}}</td>
+            <td>{{ form.image}}</td>
             <td>{{ form.name }}</td>
             <td>{{form.description}}</td>
             <td>{{form.price}}</td>
             <td>{{form.location}}</td>
+            <td>{{form.owner}}</td>
         </tr>
 
        
     </table>
     <input type="submit" value="Submit">
 </form>
-  
+{{form.errors}}
+
 {% endblock content %}
