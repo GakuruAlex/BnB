@@ -1,0 +1,23 @@
+.login{ 
+    display: flex;
+    flex-direction: column;
+    margin-left: 5em;
+}
+
+#username{
+    margin-top: .2em;
+    padding: .5em;
+    width: 30em;
+
+}
+#password{
+    margin-top: .2em;
+    padding: .5em;
+    width: 30em;
+}
+
+#login{
+    margin-top: .5em;
+    padding: .5em;
+    width: 30em;
+}
