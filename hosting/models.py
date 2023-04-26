@@ -1,20 +1,22 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Room(models.Model):
-    image =models.URLField(max_length=200)
+    image =models.ImageField(upload_to='images/')
     name =models.CharField(max_length=50)
     description = models.TextField()
     location = models.CharField(max_length=25)
     price = models.FloatField()
     occupied = models.BooleanField(default=False)
     is_cleaned = models.BooleanField()
+    owner = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
     
     def __str__(self):
         return self.name 
 class Client(models.Model):
     contact= models.IntegerField()
-    name = models.CharField(max_length=50)
+    name = models.ForeignKey(User,on_delete=models.CASCADE,default=1 )
     
     def __str__(self):
         return self.name
