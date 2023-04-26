@@ -11,7 +11,7 @@
 
 <div class="card">
  
-    <img src="{% static room.image %}" alt="room image" class="img" style="width:100%;height: 100%;">
+    <img src="{{room.image.url}}" alt="room image" class="img" style="width:100%;height: 100%;">
     <div class="container">
         <h2>{{room.name}}</h2>
       <p>Description: {{room.description}}</p>
