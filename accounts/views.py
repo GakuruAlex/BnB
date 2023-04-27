@@ -29,6 +29,7 @@ def loginPage(request):
         
        if user is not None:
            login(request,user)
+           messages.success(request,"Welcome "+ username)
            return HttpResponseRedirect(reverse("hosting:dashboard"))
        else:
            messages.info(request,"Username or password is incorrect")
@@ -39,4 +40,4 @@ def loginPage(request):
 
 def logoutPage(request):
     logout(request)
-    return HttpResponseRedirect("accounts:login")
+    return HttpResponseRedirect(reverse("accounts:login"))
