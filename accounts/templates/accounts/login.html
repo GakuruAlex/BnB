@@ -6,10 +6,16 @@
   
 {% endblock title %}
 
-
+<div>
+    {% for message in message  %}
+    <p>{{message}}</p>
+      
+    {% endfor %}
+</div>
 
 <form action="{% url 'accounts:login' %}" method="post">
     {% csrf_token %}
+    
 <div class="login">
     <label for="username">Username</label>
     <input type="text" name="username" id="username">
@@ -18,12 +24,20 @@
     <input type="password" name="password" id="password">
 
     <input type="submit" value="Login" id="login">
-
+  
 </div>
-<div>
-    {% for message in message  %}
-    <p>{{message}}</p>
-      
-    {% endfor %}
-</div>
+ {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Errors:</strong>
+            {% for errors in form.errors.items %}
+               
+                <ul>
+                    {% for error in errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endfor %}
+        </div>
+    {% endif %}
 </form>
+<span>Don't have an account?<a href="{% url 'accounts:signup' %}">Sign up</a></span>
