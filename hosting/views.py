@@ -2,7 +2,9 @@ from django.shortcuts import render,get_object_or_404
 from .models import Room
 from .forms import RoomForm
 from django.http import HttpResponseRedirect
-from django.urls  import reverse
+from django.urls  import reverse,reverse_lazy
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def rooms(request):
@@ -20,7 +22,7 @@ def room(request,pk):
     return render(request,"hosting/room_detail.html",{"room":room})
     
 
-
+@login_required(login_url=reverse_lazy('accounts:login'))
 def create_room(request):
     
     if request.method =='POST':
@@ -32,7 +34,7 @@ def create_room(request):
      form = RoomForm()
     return render(request,'hosting/create_room.html',{'form':form})
      
-     
+@login_required(login_url=reverse_lazy('accounts:login'))   
 def edit_room(request,pk):
     room_to_edit = get_object_or_404(Room,pk=pk)
     
@@ -49,7 +51,7 @@ def edit_room(request,pk):
     
     
     
-
+@login_required(login_url=reverse_lazy('accounts:login'))
 def delete_room(request,pk):
     room = Room.objects.get(id=pk)
     room.delete()
