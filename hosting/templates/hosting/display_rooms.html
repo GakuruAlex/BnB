@@ -27,6 +27,7 @@
 
 
 <h2>Welcome {{request.user}}</h2>
+<span id="logout"><a href="{% url 'accounts:logout' %}">Logout</a></span>
 
 <div class="grid-container">
  
@@ -40,8 +41,15 @@
             <h4>Room {{room.name}}</h4>
             <h4><b>Description: </b></h4> 
             <p>{{room.description}}</p> 
-            <button class="button"  onclick="window.location.href='{% url 'hosting:viewroom' room.id %}'"  >View More</button>
+
+          {% if request.user == room.owner %}
+          <button class="button"  onclick="window.location.href='{% url 'hosting:viewroom' room.id %}'"  >View More</button>
             <button class="button" id="delete" onclick="window.location.href='{% url 'hosting:delete_room' room.id %}'" >Delete</button>
+          {% else %}
+          <button class="button"  onclick="window.location.href='{% url 'hosting:viewroom' room.id %}'"  >View More</button>
+          {% endif %}
+
+            
           </div>
         </div>
     </div>

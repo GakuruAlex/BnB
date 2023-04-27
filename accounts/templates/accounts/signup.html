@@ -22,4 +22,9 @@
 <input type="submit" value="Signup" id="signup">
 </div>
   {{form.errors}}
+  {% for message  in message  %}
+  <p>{{message}}</p>    
+  {% endfor %}
 </form>
+
+<span>Already have an account? <a href="{% url 'accounts:login' %}">Sign in</a></span>
