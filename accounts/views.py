@@ -5,8 +5,10 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.urls import reverse
 from .forms import CreateUserForm
+from .decorators import unautheticated_user
 
 # Create your views here.
+@unautheticated_user
 def signup(request):
     form = CreateUserForm()
     if request.method == 'POST':
@@ -19,7 +21,7 @@ def signup(request):
          return HttpResponseRedirect(reverse("accounts:login"))
     return render(request,"accounts/signup.html",{"form":form})
 
-
+@unautheticated_user
 def loginPage(request):
     if request.method=="POST":
        username= request.POST.get("username")
