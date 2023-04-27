@@ -1,9 +1,10 @@
 from django.shortcuts import render,get_object_or_404
 from .models import Room
 from .forms import RoomForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from django.urls  import reverse,reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -56,3 +57,12 @@ def delete_room(request,pk):
     room = Room.objects.get(id=pk)
     room.delete()
     return HttpResponseRedirect(reverse('hosting:dashboard'))
+
+
+@login_required(login_url=reverse_lazy("accounts:login"))
+def ownerRooms(request):
+    my_id = request.user.id
+    owner = User.objects.get(id=my_id)
+    my_rooms = Room.objects.filter(owner=owner)
+    
+    return HttpResponse(request,"dashboard.html",my_rooms)
