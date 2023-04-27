@@ -17,8 +17,13 @@
       <p>Description: {{room.description}}</p>
       <h4 class="price"><b>Price USD: {{room.price}}</b></h4>
       <h4>Location: {{room.location}}</h4>
-      <button class="button"  onclick="window.location.href='#'"  >Book</button>
+      {% if request.user == room.owner %}
       <button class="button"  onclick="window.location.href='{% url 'hosting:editroom' room.id %}'"  >EDIT</button>
+      {% else %}
+      <button class="button"  onclick="window.location.href='#'"  >Book</button>
+      {% endif %}
+      
+    
     </div>
   </div>
 
