@@ -14,13 +14,17 @@
     <img src="{{room.image.url}}" alt="room image" class="img" style="width:100%;height: 100%;">
     <div class="container">
         <h2>{{room.name}}</h2>
+        
+
       <p>Description: {{room.description}}</p>
       <h4 class="price"><b>Price USD: {{room.price}}</b></h4>
       <h4>Location: {{room.location}}</h4>
       {% if request.user == room.owner %}
       <button class="button"  onclick="window.location.href='{% url 'hosting:editroom' room.id %}'"  >EDIT</button>
       {% else %}
-      <button class="button"  onclick="window.location.href='#'"  >Book</button>
+      
+      <button class="button"  onclick="window.location.href='{% url 'hosting:book-room' room.id request.user.id %}'"  >Book</button>
+      
       {% endif %}
       
     
