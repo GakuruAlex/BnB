@@ -37,6 +37,9 @@ class Booking(models.Model):
     
     def __str__(self):
         return self.room
+    
+    class Meta:
+        ordering =['room','begin']
 
 class Review(models.Model):
     description = models.TextField()
