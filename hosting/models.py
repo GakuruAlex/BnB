@@ -18,13 +18,20 @@ class Client(models.Model):
     contact= models.IntegerField()
     name = models.ForeignKey(User,on_delete=models.CASCADE,default=1 )
     
-    def __str__(self):
-        return self.name
+    client = None  # client field should be set after saving the object
 
+    def __str__(self):
+        return self.name.username  # return the username of the related User object
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        self.client = self.name.id  # set the client field to the id of the related User object
+        super().save(*args, **kwargs) 
+        # save the object again to update the client field
 class Booking(models.Model):
     client = models.ForeignKey(Client,on_delete=models.CASCADE)
     room = models.ForeignKey(Room,on_delete=models.CASCADE)
-    duration = models.DateField(auto_now=False, auto_now_add=False)
+    duration = models.IntegerField()
     begin = models.DateField(auto_now=False, auto_now_add=False)
     end = models.DateField(auto_now=False, auto_now_add=False)
     
