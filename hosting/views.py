@@ -75,7 +75,7 @@ def userRooms(request):
 
 @login_required(login_url=reverse_lazy("accounts:login"))
 @transaction.atomic
-def book_room(request, pk, user_id):
+def book_room(request):
     room_id =request.POST.get('room')
     room = get_object_or_404(Room, pk=room_id)
     client_id=request.POST.get('client')
