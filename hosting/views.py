@@ -1,11 +1,15 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Room
-from .forms import RoomForm
+from .models import Room,Booking, Client
+from .forms import RoomForm,BookingForm
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+from django.db import transaction
+from django.db.models import Q
+from datetime import datetime, timedelta
+
 
 # Create your views here.
 
@@ -66,3 +70,52 @@ def userRooms(request):
     page = request.GET.get("page")
     items = paginator.get_page(page)
     return render(request, "hosting/dashboard.html", {"rooms": items})
+
+
+
+@login_required(login_url=reverse_lazy("accounts:login"))
+@transaction.atomic
+def book_room(request, pk, user_id):
+    room_id =request.POST.get('room')
+    room = get_object_or_404(Room, pk=room_id)
+    client_id=request.POST.get('client')
+    client = get_object_or_404(Client, pk=client_id)
+    
+    if request.method == "POST":
+        form = BookingForm(request.POST)
+        
+        if form.is_valid():
+            booking = form.save(commit=False)
+            begin_date_string = request.POST.get('begin')
+            end_date_string = request.POST.get('end')
+        
+            begin_date = datetime.strptime(begin_date_string, '%Y-%m-%d')
+            end_date = datetime.strptime(end_date_string, '%Y-%m-%d')
+        
+            duration = (end_date - begin_date).days
+        
+            booking.duration = duration
+            booking.client = client
+            booking.room = room
+            
+            # Check for double booking
+            existing_bookings = Booking.objects.filter(
+                Q(begin__lt=end_date) & Q(end__gt=begin_date) & Q(room=room)
+            )
+            if existing_bookings:
+                message = f"Room {room} is already booked from {begin_date} to {end_date}."
+                return render(request, "hosting/book_room.html", {"form": form, "error_message": message})
+            
+            # Save the booking and mark the room as occupied
+            booking.save()
+            room.occupied = True
+            room.save()
+          
+            return HttpResponseRedirect(reverse("hosting:bookings"))
+    else:
+        form = BookingForm()
+    
+    return render(request, "hosting/book_room.html", {"form": form})
+def show_bookings(request):
+    bookings = Booking.objects.all()
+    return render(request,"hosting/bookings.html",{"bookings":bookings})
