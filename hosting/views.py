@@ -66,16 +66,17 @@ def userRooms(request):
     my_id = request.user.id
     owner = User.objects.get(id=my_id)
     my_rooms = Room.objects.filter(owner=owner)
+    my_bookings = Booking.objects.filter(room__owner=owner)
     paginator = Paginator(my_rooms, 1)
     page = request.GET.get("page")
     items = paginator.get_page(page)
-    return render(request, "hosting/dashboard.html", {"rooms": items})
+    return render(request, "hosting/dashboard.html", {"rooms": items,"bookings":my_bookings})
 
 
 
 @login_required(login_url=reverse_lazy("accounts:login"))
 @transaction.atomic
-def book_room(request):
+def book_room(request,pk,user_id):
     room_id =request.POST.get('room')
     room = get_object_or_404(Room, pk=room_id)
     client_id=request.POST.get('client')
@@ -93,7 +94,7 @@ def book_room(request):
             end_date = datetime.strptime(end_date_string, '%Y-%m-%d')
         
             duration = (end_date - begin_date).days
-        
+            booking.amount = room.price * duration
             booking.duration = duration
             booking.client = client
             booking.room = room
@@ -116,6 +117,16 @@ def book_room(request):
         form = BookingForm()
     
     return render(request, "hosting/book_room.html", {"form": form})
+
+
+#list bookings
 def show_bookings(request):
     bookings = Booking.objects.all()
     return render(request,"hosting/bookings.html",{"bookings":bookings})
+
+def show_my_booking(request):
+    my_id = request.user.id
+    owner = User.objects.get(id=my_id)
+    my_rooms = Room.objects.filter(owner=owner)
+    my_bookings = Booking.objects.filter(room__owner=owner)
+    return render (request,"hosting/my_bookings.html",{"my-bookings":my_bookings})
