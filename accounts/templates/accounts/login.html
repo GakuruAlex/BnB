@@ -1,43 +1,120 @@
 {% load static %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
 
-<link rel="stylesheet" href="{% static 'accounts/login.css'%}">
+    body {font-family: Arial, Helvetica, sans-serif;}
+    * {box-sizing: border-box;}
+    .alert {
+  padding: 20px;
+  background-color:limegreen;
+  color: white;
+}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+    .input-container {
+      margin-left: 16.5em;
+      display: -ms-flexbox; /* IE10 */
+      display: flex;
+      width: 50%;
+      margin-bottom: 15px;
+    }
+    
+    .icon {
+      padding: 10px;
+      background: dodgerblue;
+      color: white;
+      min-width: 50px;
+      text-align: center;
+    }
+    
+    .input-field {
+      width: 100%;
+      padding: 10px;
+      outline: none;
+    }
+    
+    .input-field:focus {
+      border: 2px solid dodgerblue;
+    }
+    
+    /* Set a style for the submit button */
+    .btn {
+      margin-left: 20em;
+      background-color: dodgerblue;
+      color: white;
+      padding: 15px 20px;
+      border: none;
+      cursor: pointer;
+      width: 50%;
+      opacity: 0.9;
+    }
+    
+    .btn:hover {
+      opacity: 1;
+    }
+  
+  
+    span{
+      margin-left: 20em;
+    }
+  
+    h2{
+      margin-left: 20em;
+    }
+    </style>
 {% block title %}
-<h3>Login </h3>
+<h2>Login </h2>
   
 {% endblock title %}
 
-<div>
-    {% for message in message  %}
-    <p>{{message}}</p>
-      
-    {% endfor %}
-</div>
+
 
 <form action="{% url 'accounts:login' %}" method="post">
     {% csrf_token %}
-    
-<div class="login">
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username">
-
-    <label for="username">password</label>
-    <input type="password" name="password" id="password">
-
-    <input type="submit" value="Login" id="login">
+   
   
-</div>
- {% if form.errors %}
-        <div class="alert alert-danger">
-            <strong>Errors:</strong>
-            {% for errors in form.errors.items %}
-               
-                <ul>
-                    {% for error in errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                </ul>
-            {% endfor %}
-        </div>
-    {% endif %}
-</form>
-<span>Don't have an account?<a href="{% url 'accounts:signup' %}">Sign up</a></span>
+    <div class="input-container">
+      <i class="fa fa-user icon" ></i>
+      <input class="input-field" type="text" placeholder="Username" name="username">
+    </div>
+  
+    
+  
+    <div class="input-container">
+      <i class="fa fa-key icon"></i>
+      <input class="input-field" type="password" placeholder="Password" name="password">
+    </div>
+   
+    <button type="submit" class="btn">Login</button>
+  </form>
+  
+  
+  
+  
+  
+  <span>Don't have an account?<a href="{% url 'accounts:signup' %}">Sign up</a></span>
+  
+  
+    {% for message  in messages  %}
+   
+   
+
+    <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+        <strong>Success</strong> <p>{{message}}</p>    
+      </div>
+      {% endfor %}
+  
