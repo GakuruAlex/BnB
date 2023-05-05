@@ -34,9 +34,13 @@ class Booking(models.Model):
     duration = models.IntegerField()
     begin = models.DateField(auto_now=False, auto_now_add=False)
     end = models.DateField(auto_now=False, auto_now_add=False)
+    amount =models.FloatField()
     
     def __str__(self):
         return self.room
+    
+    class Meta:
+        ordering =['room','begin']
 
 class Review(models.Model):
     description = models.TextField()
