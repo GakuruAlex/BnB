@@ -1,0 +1,13 @@
+{% include 'topnav.html' %}
+
+
+{% if my_bookings  %}
+
+{% for booking in my_bookings  %}
+<p>{{booking}}</p>
+{% endfor %}
+
+{% else %}
+<p>No booking for your listed rooms yet</p>
+{% endif %}
+    
